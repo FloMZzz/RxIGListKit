@@ -12,7 +12,7 @@ import IGListKit
 final class TimelineViewController: UIViewController, IGListAdapterDataSource {
     
     lazy private var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 0)
+        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
     
     private let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())

@@ -16,6 +16,8 @@ final class FeedViewController: IGListSectionController {
     override init() {
         super.init()
         displayDelegate = self
+        workingRangeDelegate = self
+        scrollDelegate = self
         supplementaryViewSource = self
     }
 }
@@ -87,6 +89,30 @@ extension FeedViewController: IGListSupplementaryViewSource {
     
     func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
         return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 56)
+    }
+}
+
+extension FeedViewController: IGListScrollDelegate {
+    func listAdapter(_ listAdapter: IGListAdapter!, didScroll sectionController: IGListSectionController!) {
+        
+    }
+    
+    func listAdapter(_ listAdapter: IGListAdapter!, willBeginDragging sectionController: IGListSectionController!) {
+        
+    }
+    
+    func listAdapter(_ listAdapter: IGListAdapter!, didEndDragging sectionController: IGListSectionController!, willDecelerate decelerate: Bool) {
+        
+    }
+}
+
+extension FeedViewController: IGListWorkingRangeDelegate {
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerWillEnterWorkingRange sectionController: IGListSectionController) {
+        
+    }
+    
+    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerDidExitWorkingRange sectionController: IGListSectionController) {
+        
     }
 }
 

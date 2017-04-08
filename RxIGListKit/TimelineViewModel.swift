@@ -18,21 +18,28 @@ final class TimelineViewModel {
     let feeds: Driver<[Feed]>
     private(set) var latestFeeds: [Feed] = []
     
-    init() {
+    init(scrolledToBottom: Driver<Void>) {
         disposeBag = DisposeBag()
         
         let feedsSubject = Variable<[Feed]>([])
         feeds = feedsSubject.asDriver()
         
-        let appendedFeeds = Driver<Int>
+        let timer = Driver<Int>
             .interval(5.0)
             .map { _ in }
+            
+        let triggers = Driver
+            .of(timer, scrolledToBottom)
+            .merge()
+            
+            
+        let appendedFeeds = triggers
             .withLatestFrom(feedsSubject.asDriver())
             .map { $0 + Feed.feeds }
+            .startWith(Feed.feeds)
             
         appendedFeeds
-            .filter { $0.count < 30 }
-            .startWith(Feed.feeds)
+            .filter { $0.count < 20 }
             .do(onNext: { [weak self] in self?.latestFeeds = $0 })
             .drive(feedsSubject)
             .disposed(by: disposeBag)

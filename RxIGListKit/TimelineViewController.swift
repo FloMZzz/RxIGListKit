@@ -24,10 +24,13 @@ final class TimelineViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel = TimelineViewModel()
-        
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
+        
+        viewModel = TimelineViewModel(
+            scrolledToBottom: collectionView.rx.scrolledToBottom.asDriver()
+        )
+        
         adapter.dataSource = self
         
         bind()

@@ -34,6 +34,7 @@
 		AE6E83811E98E6AB0095DBF9 /* FeedCommentViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AE6E83801E98E6AB0095DBF9 /* FeedCommentViewCell.xib */; };
 		AE6E83841E98E90C0095DBF9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6E83831E98E90C0095DBF9 /* User.swift */; };
 		AE6E83861E98E9270095DBF9 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6E83851E98E9270095DBF9 /* Comment.swift */; };
+		AE6E83921E9948270095DBF9 /* TimelineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6E83911E9948270095DBF9 /* TimelineViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		AE6E83801E98E6AB0095DBF9 /* FeedCommentViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedCommentViewCell.xib; sourceTree = "<group>"; };
 		AE6E83831E98E90C0095DBF9 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		AE6E83851E98E9270095DBF9 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		AE6E83911E9948270095DBF9 /* TimelineViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelineViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +231,7 @@
 			isa = PBXGroup;
 			children = (
 				AE6E83221E98AB770095DBF9 /* TimelineViewController.swift */,
+				AE6E83911E9948270095DBF9 /* TimelineViewModel.swift */,
 			);
 			name = Timeline;
 			sourceTree = "<group>";
@@ -425,6 +428,7 @@
 				AE6E83741E98D83E0095DBF9 /* FeedViewCell.swift in Sources */,
 				AE6E837F1E98E68E0095DBF9 /* FeedCommentViewCell.swift in Sources */,
 				AE6E83671E98BB840095DBF9 /* FeedViewController.swift in Sources */,
+				AE6E83921E9948270095DBF9 /* TimelineViewModel.swift in Sources */,
 				AE6E83211E98AB770095DBF9 /* AppDelegate.swift in Sources */,
 				AE6E83841E98E90C0095DBF9 /* User.swift in Sources */,
 				AE6E83861E98E9270095DBF9 /* Comment.swift in Sources */,

@@ -7,21 +7,30 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 import IGListKit
 
-final class TimelineViewController: UIViewController, IGListAdapterDataSource {
+final class TimelineViewController: UIViewController {
     
     lazy private var adapter: IGListAdapter = {
         return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
     
     private let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private let disposeBag = DisposeBag()
+    
+    fileprivate var viewModel: TimelineViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        viewModel = TimelineViewModel()
+        
         view.addSubview(collectionView)
         adapter.collectionView = collectionView
         adapter.dataSource = self
+        
+        bind()
     }
     
     override func viewDidLayoutSubviews() {
@@ -29,8 +38,16 @@ final class TimelineViewController: UIViewController, IGListAdapterDataSource {
         collectionView.frame = view.bounds
     }
     
+    private func bind() {
+        viewModel.feeds
+            .drive(onNext: { [weak self] _ in self?.adapter.performUpdates(animated: true, completion: nil) })
+            .disposed(by: disposeBag)
+    }
+}
+
+extension TimelineViewController: IGListAdapterDataSource {
     func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return Feed.feeds
+        return viewModel.latestFeeds
     }
     
     func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {

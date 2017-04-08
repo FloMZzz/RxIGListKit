@@ -11,12 +11,12 @@ import UIKit
 import IGListKit
 
 final class Feed: IGListDiffable {
-    let id: Int64
+    let id: String
     let user: User
     let comment: Comment
     let photo: UIImage
     
-    init(id: Int64, user: User, comment: Comment, photo: UIImage) {
+    init(id: String, user: User, comment: Comment, photo: UIImage) {
         self.id = id
         self.user = user
         self.comment = comment
@@ -45,9 +45,9 @@ final class Feed: IGListDiffable {
     
     static var feeds: [Feed] {
         return [
-            Feed(id: 1, user: User.user, comment: Comment.comment, photo: UIImage(named: "feed")!),
-            Feed(id: 2, user: User.user, comment: Comment.comment, photo: UIImage(named: "feed1")!),
-            Feed(id: 3, user: User.user, comment: Comment.comment, photo: UIImage(named: "feed2")!)
+            Feed(id: UUID().uuidString, user: User.user, comment: Comment.comment, photo: UIImage(named: "feed")!),
+            Feed(id: UUID().uuidString, user: User.user, comment: Comment.comment, photo: UIImage(named: "feed1")!),
+            Feed(id: UUID().uuidString, user: User.user, comment: Comment.comment, photo: UIImage(named: "feed2")!)
         ]
     }
 }

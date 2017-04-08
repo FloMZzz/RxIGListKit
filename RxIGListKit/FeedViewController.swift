@@ -9,12 +9,20 @@
 import Foundation
 import IGListKit
 
-final class FeedViewController: IGListSectionController, IGListSectionType {
+final class FeedViewController: IGListSectionController {
     
-    private var feed: Feed?
+    fileprivate var feed: Feed?
     
+    override init() {
+        super.init()
+        displayDelegate = self
+        supplementaryViewSource = self
+    }
+}
+
+extension FeedViewController: IGListSectionType {
     func numberOfItems() -> Int {
-        return 4
+        return 3
     }
     
     func sizeForItem(at index: Int) -> CGSize {
@@ -23,44 +31,30 @@ final class FeedViewController: IGListSectionController, IGListSectionType {
         }
         
         let containerWidth = context.containerSize.width
-        
         switch index {
         case 0:
-            return CGSize(width: containerWidth, height: 56)
-            
-        case 1:
             let imageSize = feed.photo.size
             let height = (imageSize.height * containerWidth) / imageSize.width
             return CGSize(width: containerWidth, height: height)
             
-        case 2:
-            return CGSize(width: containerWidth, height: 46)
-            
-        case 3:
-            return CGSize(width: containerWidth, height: 26)
-            
-        default:
-            fatalError("Unexpected index for sizeForItem(at: _) in \(self)")
+        case 1: return CGSize(width: containerWidth, height: 46)
+        case 2: return CGSize(width: containerWidth, height: 26)
+        default: fatalError("Unexpected index for sizeForItem(at: _) in \(self)")
         }
     }
     
     func cellForItem(at index: Int) -> UICollectionViewCell {
         switch index {
         case 0:
-            let cell = collectionContext?.dequeueReusableCell(withNibName: FeedUserViewCell.nibName, bundle: nil, for: self, at: index) as! FeedUserViewCell
-            cell.feed = feed
-            return cell
-            
-        case 1:
             let cell = collectionContext?.dequeueReusableCell(withNibName: FeedViewCell.nibName, bundle: nil, for: self, at: index) as! FeedViewCell
             cell.feed = feed
             return cell
             
-        case 2:
+        case 1:
             let cell = collectionContext?.dequeueReusableCell(withNibName: FeedActionViewCell.nibName, bundle: nil, for: self, at: index) as! FeedActionViewCell
             return cell
             
-        case 3:
+        case 2:
             let cell = collectionContext?.dequeueReusableCell(withNibName: FeedCommentViewCell.nibName, bundle: nil, for: self, at: index) as! FeedCommentViewCell
             cell.feed = feed
             return cell
@@ -76,5 +70,40 @@ final class FeedViewController: IGListSectionController, IGListSectionType {
     
     func didSelectItem(at index: Int) {
         print("Index \(index) is selected")
+    }
+}
+
+extension FeedViewController: IGListSupplementaryViewSource {
+    func supportedElementKinds() -> [String] {
+        return [UICollectionElementKindSectionHeader]
+    }
+    
+    func viewForSupplementaryElement(ofKind elementKind: String, at index: Int) -> UICollectionReusableView {
+        let cell = collectionContext?.dequeueReusableSupplementaryView(
+            ofKind: UICollectionElementKindSectionHeader, for: self, nibName: FeedUserViewCell.nibName, bundle: nil, at: index) as! FeedUserViewCell
+        cell.feed = feed
+        return cell
+    }
+    
+    func sizeForSupplementaryView(ofKind elementKind: String, at index: Int) -> CGSize {
+        return CGSize(width: collectionContext?.containerSize.width ?? 0, height: 56)
+    }
+}
+
+extension FeedViewController: IGListDisplayDelegate {
+    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController) {
+        
+    }
+    
+    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController) {
+        
+    }
+    
+    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+        
+    }
+    
+    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+        
     }
 }

@@ -23,46 +23,52 @@ final class FeedViewController: IGListSectionController {
 }
 
 extension FeedViewController: IGListSectionType {
+    enum Kind: Int {
+        case photo = 0
+        case action
+        case comment
+        
+        static var counts: Int {
+            return 3
+        }
+    }
+    
     func numberOfItems() -> Int {
-        return 3
+        return Kind.counts
     }
     
     func sizeForItem(at index: Int) -> CGSize {
-        guard let feed = feed, let context = collectionContext else {
+        guard let feed = feed, let kind = Kind(rawValue: index), let containerSize = collectionContext?.containerSize else {
             fatalError("Feed & IGListCollectionContext are neccesory to display feed in \(self)")
         }
         
-        let containerWidth = context.containerSize.width
-        switch index {
-        case 0:
-            let imageSize = feed.photo.size
-            let height = (imageSize.height * containerWidth) / imageSize.width
-            return CGSize(width: containerWidth, height: height)
-            
-        case 1: return CGSize(width: containerWidth, height: 46)
-        case 2: return CGSize(width: containerWidth, height: 26)
-        default: fatalError("Unexpected index for sizeForItem(at: _) in \(self)")
+        let height: CGFloat
+        switch kind {
+        case .photo: height = (feed.photo.size.height * containerSize.width) / feed.photo.size.width
+        case .action: height = 46
+        case .comment: height = 26
         }
+        
+        return CGSize(width: containerSize.width, height: height)
     }
     
     func cellForItem(at index: Int) -> UICollectionViewCell {
-        switch index {
-        case 0:
+        guard let kind = Kind(rawValue: index) else { fatalError() }
+        
+        switch kind {
+        case .photo:
             let cell = collectionContext?.dequeueReusableCell(withNibName: FeedViewCell.nibName, bundle: nil, for: self, at: index) as! FeedViewCell
             cell.feed = feed
             return cell
             
-        case 1:
+        case .action:
             let cell = collectionContext?.dequeueReusableCell(withNibName: FeedActionViewCell.nibName, bundle: nil, for: self, at: index) as! FeedActionViewCell
             return cell
             
-        case 2:
+        case .comment:
             let cell = collectionContext?.dequeueReusableCell(withNibName: FeedCommentViewCell.nibName, bundle: nil, for: self, at: index) as! FeedCommentViewCell
             cell.feed = feed
             return cell
-            
-        default:
-            fatalError()
         }
     }
     

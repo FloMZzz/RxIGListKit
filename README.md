@@ -9,6 +9,8 @@ I implemented Instagram UI with RxSwift and IGListKit in the same way Instagram 
 To see, clone this repository and run!
 
 
+<img src="https://cloud.githubusercontent.com/assets/12425729/24835650/304e1cfe-1d42-11e7-8489-3f8b8c16d4c6.PNG" width="340"> | <img src="https://cloud.githubusercontent.com/assets/12425729/24835665/84d55f44-1d42-11e7-8666-408cda9f536a.PNG" width="340">
+
 ## How to use
 
 Create a dataSource comfirmed to RxIGListAdapterDataSource and IGListAdapterDataSource and use it like UICollectionView and UITableView in RxSwift🎉

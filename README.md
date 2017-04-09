@@ -62,3 +62,5 @@ final class DataSource: NSObject, IGListAdapterDataSource, RxIGListAdapterDataSo
 }
 ```
 
+## Help
+I am trying to find a good way to wrap up IGListSectionViewController and its delegates. it would be very appriciated to make an issue or PR!

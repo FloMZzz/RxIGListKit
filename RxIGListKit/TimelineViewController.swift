@@ -19,6 +19,7 @@ final class TimelineViewController: UIViewController {
     
     private let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private let disposeBag = DisposeBag()
+    private let dataSource = DataSource()
     
     fileprivate var viewModel: TimelineViewModel!
 
@@ -31,33 +32,40 @@ final class TimelineViewController: UIViewController {
             scrolledToBottom: collectionView.rx.scrolledToBottom.asDriver()
         )
         
-        adapter.dataSource = self
+        rx.viewDidLayoutSubviews.asDriver()
+            .drive(onNext: { [unowned self] _ in self.collectionView.frame = self.view.bounds })
+            .disposed(by: disposeBag)
         
-        bind()
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.frame = view.bounds
-    }
-    
-    private func bind() {
+        adapter.rx.setDataSource(dataSource)
+            .disposed(by: disposeBag)
+        
         viewModel.feeds
-            .drive(onNext: { [weak self] _ in self?.adapter.performUpdates(animated: true, completion: nil) })
+            .drive(adapter.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
     }
-}
-
-extension TimelineViewController: IGListAdapterDataSource {
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
-        return viewModel.latestFeeds
-    }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
-        return FeedViewController()
-    }
-    
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
-        return nil
+    final class DataSource: NSObject, IGListAdapterDataSource, RxIGListAdapterDataSource {
+        typealias Element = [Feed]
+        
+        var elements: Element = []
+        
+        func listAdapter(_ adapter: IGListAdapter, observedEvent: Event<[Feed]>) {
+            if case .next(let feeds) = observedEvent {
+                elements = feeds
+                adapter.performUpdates(animated: true)
+            }
+        }
+        
+        func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+            return elements
+        }
+        
+        func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+            return FeedViewController()
+        }
+        
+        func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+            return nil
+        }
     }
 }

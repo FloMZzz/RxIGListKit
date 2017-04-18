@@ -39,6 +39,8 @@
 		AE6E83971E99F5180095DBF9 /* RxIGListAdapterDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6E83961E99F5180095DBF9 /* RxIGListAdapterDataSource.swift */; };
 		AE6E83991E9A03800095DBF9 /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE6E83981E9A03800095DBF9 /* UIViewController+Extension.swift */; };
 		AE9CF6661EA60C9B003333F3 /* IGListAdapter+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9CF6651EA60C9B003333F3 /* IGListAdapter+Rx.swift */; };
+		AE9CF6681EA60D27003333F3 /* RxTableViewReactiveDiffableArrayDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9CF6671EA60D27003333F3 /* RxTableViewReactiveDiffableArrayDataSource.swift */; };
+		AE9CF66A1EA611AB003333F3 /* UITableView+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = AE9CF6691EA611AB003333F3 /* UITableView+Rx.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -111,6 +113,8 @@
 		AE6E83961E99F5180095DBF9 /* RxIGListAdapterDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxIGListAdapterDataSource.swift; sourceTree = "<group>"; };
 		AE6E83981E9A03800095DBF9 /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		AE9CF6651EA60C9B003333F3 /* IGListAdapter+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IGListAdapter+Rx.swift"; sourceTree = "<group>"; };
+		AE9CF6671EA60D27003333F3 /* RxTableViewReactiveDiffableArrayDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RxTableViewReactiveDiffableArrayDataSource.swift; sourceTree = "<group>"; };
+		AE9CF6691EA611AB003333F3 /* UITableView+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITableView+Rx.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -296,7 +300,8 @@
 			isa = PBXGroup;
 			children = (
 				AE6E83961E99F5180095DBF9 /* RxIGListAdapterDataSource.swift */,
-				AE9CF6651EA60C9B003333F3 /* IGListAdapter+Rx.swift */,
+				AE9CF6671EA60D27003333F3 /* RxTableViewReactiveDiffableArrayDataSource.swift */,
+				AE9CF66B1EA615F5003333F3 /* Extension */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -309,6 +314,15 @@
 				AE6E83781E98E0090095DBF9 /* Extension */,
 			);
 			name = Example;
+			sourceTree = "<group>";
+		};
+		AE9CF66B1EA615F5003333F3 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				AE9CF6651EA60C9B003333F3 /* IGListAdapter+Rx.swift */,
+				AE9CF6691EA611AB003333F3 /* UITableView+Rx.swift */,
+			);
+			name = Extension;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -455,9 +469,11 @@
 				AE6E83771E98DFF20095DBF9 /* UIView+Extension.swift in Sources */,
 				AE9CF6661EA60C9B003333F3 /* IGListAdapter+Rx.swift in Sources */,
 				AE6E83991E9A03800095DBF9 /* UIViewController+Extension.swift in Sources */,
+				AE9CF66A1EA611AB003333F3 /* UITableView+Rx.swift in Sources */,
 				AE6E83651E98B14F0095DBF9 /* Feed.swift in Sources */,
 				AE6E83941E9966960095DBF9 /* UIScrollView+Extension.swift in Sources */,
 				AE6E83741E98D83E0095DBF9 /* FeedViewCell.swift in Sources */,
+				AE9CF6681EA60D27003333F3 /* RxTableViewReactiveDiffableArrayDataSource.swift in Sources */,
 				AE6E837F1E98E68E0095DBF9 /* FeedCommentViewCell.swift in Sources */,
 				AE6E83671E98BB840095DBF9 /* FeedViewController.swift in Sources */,
 				AE6E83921E9948270095DBF9 /* TimelineViewModel.swift in Sources */,

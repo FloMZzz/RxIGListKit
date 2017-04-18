@@ -14,24 +14,3 @@ protocol RxIGListAdapterDataSource {
     associatedtype Element
     func listAdapter(_ adapter: IGListAdapter, observedEvent: Event<Element>) -> Void
 }
-
-extension Reactive where Base: IGListAdapter {
-    func items<DataSource: RxIGListAdapterDataSource & IGListAdapterDataSource, O: ObservableType>(dataSource: DataSource)
-        -> (_ source: O)
-        -> Disposable where DataSource.Element == O.E {
-            
-        return { source in
-            let subscription = source
-                .subscribe { dataSource.listAdapter(self.base, observedEvent: $0) }
-            
-            return Disposables.create {
-                subscription.dispose()
-            }
-        }
-    }
-    
-    func setDataSource<DataSource: RxIGListAdapterDataSource & IGListAdapterDataSource>(_ dataSource: DataSource) -> Disposable {
-        base.dataSource = dataSource
-        return Disposables.create()
-    }
-}

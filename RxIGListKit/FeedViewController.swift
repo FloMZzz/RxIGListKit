@@ -9,7 +9,7 @@
 import Foundation
 import IGListKit
 
-final class FeedViewController: IGListSectionController {
+final class FeedViewController: ListSectionController {
     
     fileprivate var feed: Feed?
     
@@ -22,7 +22,7 @@ final class FeedViewController: IGListSectionController {
     }
 }
 
-extension FeedViewController: IGListSectionType {
+extension FeedViewController {
     enum Kind: Int {
         case photo = 0
         case action
@@ -33,11 +33,11 @@ extension FeedViewController: IGListSectionType {
         }
     }
     
-    func numberOfItems() -> Int {
+    override func numberOfItems() -> Int {
         return Kind.counts
     }
     
-    func sizeForItem(at index: Int) -> CGSize {
+    override func sizeForItem(at index: Int) -> CGSize {
         guard let feed = feed, let kind = Kind(rawValue: index), let containerSize = collectionContext?.containerSize else {
             fatalError("Feed & IGListCollectionContext are neccesory to display feed in \(self)")
         }
@@ -52,7 +52,7 @@ extension FeedViewController: IGListSectionType {
         return CGSize(width: containerSize.width, height: height)
     }
     
-    func cellForItem(at index: Int) -> UICollectionViewCell {
+    override func cellForItem(at index: Int) -> UICollectionViewCell {
         guard let kind = Kind(rawValue: index) else { fatalError() }
         
         switch kind {
@@ -72,16 +72,16 @@ extension FeedViewController: IGListSectionType {
         }
     }
     
-    func didUpdate(to object: Any) {
+    override func didUpdate(to object: Any) {
         feed = object as? Feed
     }
     
-    func didSelectItem(at index: Int) {
+    override func didSelectItem(at index: Int) {
         print("Index \(index) is selected")
     }
 }
 
-extension FeedViewController: IGListSupplementaryViewSource {
+extension FeedViewController: ListSupplementaryViewSource {
     func supportedElementKinds() -> [String] {
         return [UICollectionElementKindSectionHeader]
     }
@@ -98,44 +98,44 @@ extension FeedViewController: IGListSupplementaryViewSource {
     }
 }
 
-extension FeedViewController: IGListScrollDelegate {
-    func listAdapter(_ listAdapter: IGListAdapter!, didScroll sectionController: IGListSectionController!) {
+extension FeedViewController: ListScrollDelegate {
+    func listAdapter(_ listAdapter: ListAdapter, didScroll sectionController: ListSectionController) {
         
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter!, willBeginDragging sectionController: IGListSectionController!) {
+    func listAdapter(_ listAdapter: ListAdapter, willBeginDragging sectionController: ListSectionController) {
         
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter!, didEndDragging sectionController: IGListSectionController!, willDecelerate decelerate: Bool) {
+    func listAdapter(_ listAdapter: ListAdapter, didEndDragging sectionController: ListSectionController, willDecelerate decelerate: Bool) {
         
     }
 }
 
-extension FeedViewController: IGListWorkingRangeDelegate {
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerWillEnterWorkingRange sectionController: IGListSectionController) {
+extension FeedViewController: ListWorkingRangeDelegate {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerWillEnterWorkingRange sectionController: ListSectionController) {
         
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerDidExitWorkingRange sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerDidExitWorkingRange sectionController: ListSectionController) {
         
     }
 }
 
-extension FeedViewController: IGListDisplayDelegate {
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController) {
+extension FeedViewController: ListDisplayDelegate {
+    func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController) {
         
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController) {
+    func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController) {
         
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, willDisplay sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: ListAdapter, willDisplay sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
         
     }
     
-    func listAdapter(_ listAdapter: IGListAdapter, didEndDisplaying sectionController: IGListSectionController, cell: UICollectionViewCell, at index: Int) {
+    func listAdapter(_ listAdapter: ListAdapter, didEndDisplaying sectionController: ListSectionController, cell: UICollectionViewCell, at index: Int) {
         
     }
 }

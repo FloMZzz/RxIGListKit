@@ -13,11 +13,11 @@ import IGListKit
 
 final class TimelineViewController: UIViewController {
     
-    lazy private var adapter: IGListAdapter = {
-        return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 2)
+    lazy private var adapter: ListAdapter = {
+        return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
     }()
     
-    private let collectionView = IGListCollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+    private let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
     private let disposeBag = DisposeBag()
     private let dataSource = DataSource()
     
@@ -44,27 +44,27 @@ final class TimelineViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    final class DataSource: NSObject, IGListAdapterDataSource, RxIGListAdapterDataSource {
+    final class DataSource: NSObject, ListAdapterDataSource, RxListAdapterDataSource {
         typealias Element = [Feed]
         
         var elements: Element = []
         
-        func listAdapter(_ adapter: IGListAdapter, observedEvent: Event<[Feed]>) {
+        func listAdapter(_ adapter: ListAdapter, observedEvent: Event<[Feed]>) {
             if case .next(let feeds) = observedEvent {
                 elements = feeds
                 adapter.performUpdates(animated: true)
             }
         }
         
-        func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+        func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
             return elements
         }
         
-        func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+        func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
             return FeedViewController()
         }
         
-        func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+        func emptyView(for listAdapter: ListAdapter) -> UIView? {
             return nil
         }
     }

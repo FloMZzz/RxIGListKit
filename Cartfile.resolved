@@ -1,2 +1,2 @@
-github "Instagram/IGListKit" "2.1.0"
-github "ReactiveX/RxSwift" "3.3.1"
+github "Instagram/IGListKit" "3.0.0"
+github "ReactiveX/RxSwift" "3.4.1"

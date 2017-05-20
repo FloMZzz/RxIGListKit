@@ -9,7 +9,7 @@
 import UIKit
 import IGListKit
 
-final class Comment: IGListDiffable {
+final class Comment: ListDiffable {
     let id: Int64
     let text: String
     
@@ -22,7 +22,7 @@ final class Comment: IGListDiffable {
         return id as NSObjectProtocol
     }
     
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard object !== self else {
             return true
         }

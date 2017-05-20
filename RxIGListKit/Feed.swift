@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import IGListKit
 
-final class Feed: IGListDiffable {
+final class Feed: ListDiffable {
     let id: String
     let user: User
     let comment: Comment
@@ -27,7 +27,7 @@ final class Feed: IGListDiffable {
         return id as NSObjectProtocol
     }
     
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard object !== self else {
             return true
         }

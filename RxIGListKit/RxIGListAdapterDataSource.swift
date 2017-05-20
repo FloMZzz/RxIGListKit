@@ -10,13 +10,13 @@ import RxSwift
 import IGListKit
 import RxCocoa
 
-protocol RxIGListAdapterDataSource {
+protocol RxListAdapterDataSource {
     associatedtype Element
-    func listAdapter(_ adapter: IGListAdapter, observedEvent: Event<Element>) -> Void
+    func listAdapter(_ adapter: ListAdapter, observedEvent: Event<Element>) -> Void
 }
 
-extension Reactive where Base: IGListAdapter {
-    func items<DataSource: RxIGListAdapterDataSource & IGListAdapterDataSource, O: ObservableType>(dataSource: DataSource)
+extension Reactive where Base: ListAdapter {
+    func items<DataSource: RxListAdapterDataSource & ListAdapterDataSource, O: ObservableType>(dataSource: DataSource)
         -> (_ source: O)
         -> Disposable where DataSource.Element == O.E {
             
@@ -30,7 +30,7 @@ extension Reactive where Base: IGListAdapter {
         }
     }
     
-    func setDataSource<DataSource: RxIGListAdapterDataSource & IGListAdapterDataSource>(_ dataSource: DataSource) -> Disposable {
+    func setDataSource<DataSource: RxListAdapterDataSource & ListAdapterDataSource>(_ dataSource: DataSource) -> Disposable {
         base.dataSource = dataSource
         return Disposables.create()
     }

@@ -9,7 +9,7 @@
 import UIKit
 import IGListKit
 
-final class User: IGListDiffable {
+final class User: ListDiffable {
     let id: Int64
     let name: String
     let profileImage: UIImage
@@ -24,7 +24,7 @@ final class User: IGListDiffable {
         return id as NSObjectProtocol
     }
     
-    func isEqual(toDiffableObject object: IGListDiffable?) -> Bool {
+    func isEqual(toDiffableObject object: ListDiffable?) -> Bool {
         guard object !== self else {
             return true
         }

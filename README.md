@@ -13,12 +13,12 @@ To see, clone this repository and run!
 
 ## How to use
 
-Create a dataSource comfirmed to RxIGListAdapterDataSource and IGListAdapterDataSource and use it like UICollectionView and UITableView in RxSwift🎉
+Create a dataSource comfirmed to RxListAdapterDataSource and ListAdapterDataSource and use it like UICollectionView and UITableView in RxSwift🎉
 
 ```swift
 
-lazy privatevar adapter: IGListAdapter = {
-    return IGListAdapter(updater: IGListAdapterUpdater(), viewController: self, workingRangeSize: 2)
+lazy privatevar adapter: ListAdapter = {
+    return ListAdapter(updater: ListAdapterUpdater(), viewController: self, workingRangeSize: 2)
 }()
 
 private let disposeBag = DisposeBag()
@@ -37,30 +37,30 @@ override func viewDidLoad() {
 ```
 
 ```swift
-final class DataSource: NSObject, IGListAdapterDataSource, RxIGListAdapterDataSource {
+final class DataSource: NSObject, ListAdapterDataSource, RxListAdapterDataSource {
     typealias Element = [Foo]
     var elements: Element = []
 
-    func listAdapter(_ adapter: IGListAdapter, observedEvent: Event<Element>) {
+    func listAdapter(_ adapter: ListAdapter, observedEvent: Event<Element>) {
         if case .next(let elements) = observedEvent {
             self.elements = elements
             adapter.performUpdates(animated: true)
         }
     }
 
-    func objects(for listAdapter: IGListAdapter) -> [IGListDiffable] {
+    func objects(for listAdapter: ListAdapter) -> [ListDiffable] {
         return elements
     }
 
-    func listAdapter(_ listAdapter: IGListAdapter, sectionControllerFor object: Any) -> IGListSectionController {
+    func listAdapter(_ listAdapter: ListAdapter, sectionControllerFor object: Any) -> ListSectionController {
         return SectionController()
     }
 
-    func emptyView(for listAdapter: IGListAdapter) -> UIView? {
+    func emptyView(for listAdapter: ListAdapter) -> UIView? {
         return nil
     }
 }
 ```
 
 ## Help
-I am trying to find a good way to wrap up IGListSectionViewController and its delegates. it would be very appriciated to make an issue or PR!
+I am trying to find a good way to wrap up ListSectionViewController and its delegates. it would be very appriciated to make an issue or PR!
